@@ -37,9 +37,6 @@ function populateFormInput() {
 
         email.value = parsedSavedMessage.email;
         textarea.value = parsedSavedMessage.message;
-    };
-    
-    
-    
+    };    
     
  }
