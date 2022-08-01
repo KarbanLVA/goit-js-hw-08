@@ -12,8 +12,7 @@ const createGallertItemsMarkup = galleryItems.map(({ preview, original, descript
   <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
+      src="${preview}"      
       alt="${description}"
     />
   </a>

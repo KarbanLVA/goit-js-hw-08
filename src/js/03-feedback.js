@@ -1,4 +1,4 @@
-const throttle = require('lodash.throttle');
+import throttle from 'lodash.throttle';
 
 const form = document.querySelector('.feedback-form');
 const email = document.querySelector('.feedback-form input');
@@ -10,11 +10,13 @@ form.addEventListener('submit', onFormSubmit);
 form.addEventListener('input', throttle(onFormInput, 500));
 
 populateFormInput();
+ 
 
 function onFormSubmit(event) {
     event.preventDefault();
-    console.log('відправка');
+    // console.log('відправка');
     event.currentTarget.reset();
+    console.log(formData);
     localStorage.removeItem(STORAGE_KEY);
 };
 
@@ -23,20 +25,17 @@ function onFormInput(event) {
     const messageValue = event.target.value;    
     formData[messageName] = messageValue;
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-    console.log(formData);
-    
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));    
 };
+
 function populateFormInput() {
     const savedMessage = localStorage.getItem(STORAGE_KEY);
-    const parsedSavedMessage = JSON.parse(savedMessage);
-
+    const parsedSavedMessage = JSON.parse(savedMessage);    
     if (parsedSavedMessage) {
-        console.log(savedMessage);
-        console.log(parsedSavedMessage);
+        Object.entries(parsedSavedMessage).forEach(([name, value]) => {
+            formData[name] = value;
+            form.elements[name].value = value;            
+        })
+    }
+};
 
-        email.value = parsedSavedMessage.email;
-        textarea.value = parsedSavedMessage.message;
-    };    
-    
- }
